@@ -27,6 +27,9 @@ export default class BotWatcher implements Watcher {
         this.creatorId = creatorId
         this.botId = botId
         this.botGuildId = botGuildId
+
+        logger.debug("Created new BotWatcher: ")
+        logger.debug(this)
     }
 
     static from (options: Partial<BotWatcher>): BotWatcher {
@@ -51,7 +54,6 @@ export default class BotWatcher implements Watcher {
     async watch (): Promise<void> {
         const guild = await client.guilds.fetch(this.botGuildId)
         this.status = "online"
-        logger.debug(this.intervall)
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         this.watchLoop = setInterval(async () => {
             const bot = await guild.members.fetch(this.botId).catch(e => null)

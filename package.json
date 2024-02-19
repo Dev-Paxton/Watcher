@@ -7,8 +7,9 @@
     "start": "NODE_ENV=prod node ./build/src/index.js",
     "dev": "NODE_ENV=dev ts-node-dev --rs --transpile-only src/index.ts",
     "test": "jest --testPathIgnorePatterns .single.test.",
-    "deploy_cmds": "node ./build/deployCmds.js",
-    "build": "tsc --build",
+    "deploy_cmds": "NODE_ENV=prod node ./build/src/deployCmds.js",
+    "dev:deploy_cmds": "NODE_ENV=dev ts-node-dev --transpile-only src/deployCmds.ts",
+    "build": "tsc --build && cp -r ./config ./build",
     "deploy": "npm run build && npm run deploy_cmds && npm start"
   },
   "keywords": [],
