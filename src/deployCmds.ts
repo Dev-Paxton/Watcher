@@ -5,7 +5,7 @@ import Config from "./utils/Config"
 import { logger } from "./utils/logger"
 import path from "path"
 
-await (async () => {
+void (async () => {
     const commands = []
     const fileExtension = __filename.slice(-3)
     const cmdDirPath = path.join(__dirname, "/cmds/")
