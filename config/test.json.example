@@ -1,0 +1,17 @@
+{
+    "logLevel": "error | warn | info | debug | test",
+    "bot": {
+        "id": "[botid]",
+        "token": "[bottoken]"
+    },
+    "database": {
+        "url": "mongodb://[username]:[password]@[host]:[port]/?authSource=",
+        "dbName": "[DatabaseName]"
+    },
+    "test": {
+        "userId": "[testUserId]",
+        "guildId": "[testGuildId]",
+        "userIds": ["[testUserId1]", "[testUserId2]", "or none"],
+        "channelIds": ["[testChannelId1]", "[testChannelId2]", "or none"]
+    }
+}

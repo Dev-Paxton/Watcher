@@ -1,5 +1,5 @@
 import fs from "fs"
-import { type BotSettings } from "../types/config"
+import { type DatabaseSettings, type BotSettings } from "../types/config"
 import path from "path"
 
 const configDirPath = path.join(__dirname, "/../../config")
@@ -8,6 +8,7 @@ export default class Config {
     static env: string
     static logLevel: string
     static bot: BotSettings
+    static database: DatabaseSettings
     static [key: string]: any
 
     constructor () {

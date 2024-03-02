@@ -1,4 +1,7 @@
+import { type ObjectId } from "mongodb"
+
 export default interface Watcher {
+    _id: ObjectId | undefined
     watchLoop: NodeJS.Timeout | undefined
     status: "online" | "offline" | undefined
     name: string

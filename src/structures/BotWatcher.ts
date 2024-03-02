@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/indent */
+import { type ObjectId } from "mongodb"
 import type Watcher from "../types/Watcher"
 import Config from "../utils/Config"
 import WatcherManager from "../utils/WatcherManager"
@@ -6,6 +7,7 @@ import { logger } from "../utils/logger"
 import ExtendedEmbedBuilder from "./ExtendedEmbedBuilder"
 
 export default class BotWatcher implements Watcher {
+    _id: ObjectId | undefined
     watchLoop: NodeJS.Timeout | undefined
     status: "online" | "offline" | undefined
     name: string
@@ -17,7 +19,7 @@ export default class BotWatcher implements Watcher {
     botId: string
     botGuildId: string
 
-    constructor (name: string, intervall: number, userIds: string[], channelIds: string[], creatorId: string, botId: string, botGuildId: string) {
+    constructor (name: string, intervall: number, userIds: string[], channelIds: string[], creatorId: string, botId: string, botGuildId: string, id?: ObjectId) {
         if (Config.env === "dev" || Config.env === "test") intervall = intervall / 60
         this.name = name
         this.intervall = intervall
@@ -27,9 +29,9 @@ export default class BotWatcher implements Watcher {
         this.creatorId = creatorId
         this.botId = botId
         this.botGuildId = botGuildId
+        this._id = id
 
-        logger.debug("Created new BotWatcher: ")
-        logger.debug(this)
+        logger.debug("Created new BotWatcher: " + JSON.stringify(this, null, 4))
     }
 
     static from (options: Partial<BotWatcher>): BotWatcher {
@@ -47,7 +49,8 @@ export default class BotWatcher implements Watcher {
             options.channelIds ?? [],
             options.creatorId,
             options.botId,
-            options.botGuildId
+            options.botGuildId,
+            options._id
         )
     }
 
@@ -59,7 +62,7 @@ export default class BotWatcher implements Watcher {
             const bot = await guild.members.fetch(this.botId).catch(e => null)
             if (bot === null) {
                 logger.warn("Couldn't find the bot from service " + this.name)
-                WatcherManager.destroyWatcher(this)
+                void WatcherManager.destroyWatcher(this)
                 return
             }
 
