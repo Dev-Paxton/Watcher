@@ -1,0 +1,11 @@
+{
+    "logLevel": "error | warn | info | debug | test",
+    "bot": {
+        "id": "[botid]",
+        "token": "[bottoken]"
+    },
+    "database": {
+        "url": "mongodb://[username]:[password]@[host]:[port]/?authSource=",
+        "dbName": "[DatabaseName]"
+    }
+}

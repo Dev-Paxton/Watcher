@@ -165,7 +165,7 @@ export default new Command({
             const response = await interaction.editReply({ embeds: [embed], components: [new ActionRowBuilder<ButtonBuilder>().addComponents(intervallButtons)] })
 
             try {
-                const buttonInteraction = await response.awaitMessageComponent({ filter: collectorFilter, time: 5_000 })
+                const buttonInteraction = await response.awaitMessageComponent({ filter: collectorFilter, time: 60_000 })
                 let intervall = parseInt(buttonInteraction.customId)
                 intervall = intervall / 1000 / 60
                 let intervallLabel = intervall + " Minute(s)"
